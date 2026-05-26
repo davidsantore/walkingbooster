@@ -57,13 +57,36 @@ async function resolveInvite(invite: string): Promise<{ guild_id?: string; guild
   };
 }
 
-async function joinGuild(token: string, inviteCode: string): Promise<{ ok: boolean; status: number }> {
-  const res = await fetch(`https://discord.com/api/v9/invites/${inviteCode}`, {
-    method: "POST",
-    headers: discordHeaders(token),
-    body: JSON.stringify({}),
-  });
-  return { ok: res.status === 200 || res.status === 204 || res.status === 400, status: res.status };
+async function joinGuild(token: string, inviteCode: string) {
+  try {
+    const res = await fetch(
+      `https://discord.com/api/v9/invites/${inviteCode}`,
+      {
+        method: "POST",
+        headers: discordHeaders(token),
+        body: JSON.stringify({}),
+      }
+    );
+
+    const text = await res.text();
+
+    console.log("JOIN STATUS:", res.status);
+    console.log("JOIN RESPONSE:", text);
+
+    return {
+      ok: res.status === 200 || res.status === 201 || res.status === 204,
+      status: res.status,
+      body: text,
+    };
+  } catch (e) {
+    console.log("JOIN ERROR:", e);
+
+    return {
+      ok: false,
+      status: 0,
+      body: String(e),
+    };
+  }
 }
 
 async function boostGuild(token: string, guildId: string, subIds: string[]): Promise<number> {
@@ -75,7 +98,14 @@ async function boostGuild(token: string, guildId: string, subIds: string[]): Pro
         headers: discordHeaders(token),
         body: JSON.stringify({ user_premium_guild_subscription_slot_ids: [subId] }),
       });
-      if (res.status === 201 || res.status === 200) boosted++;
+      const txt = await res.text();
+
+console.log("BOOST STATUS:", res.status);
+console.log("BOOST RESPONSE:", txt);
+
+if (res.status === 201 || res.status === 200) {
+  boosted++;
+}
     } catch (_) { /* continue */ }
   }
   return boosted;
@@ -140,7 +170,7 @@ async function runBoostTask(taskId: string, guildId: string, inviteCode: string,
     // Join
     try {
       const joinResult = await joinGuild(acc.token_full, inviteCode);
-      if (joinResult.ok || joinResult.status === 400) {
+      if (joinResult.ok) {
         td.join_status = "joined";
         stats.joined++;
       } else {
