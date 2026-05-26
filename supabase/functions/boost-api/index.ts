@@ -277,9 +277,7 @@ Deno.serve(async (req: Request) => {
       }).select().single();
 
       // Run boost async
-      EdgeRuntime.waitUntil(
-        runBoostTask(task.id, guildInfo.guild_id!, guildInfo.invite_code!, keyData.boost_count)
-      );
+            void runBoostTask(task.id, guildInfo.guild_id!, guildInfo.invite_code!, keyData.boost_count);
 
       return json({
         task_id: task.id,
