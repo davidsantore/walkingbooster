@@ -205,7 +205,7 @@ Deno.serve(async (req: Request) => {
   }
 
   const url = new URL(req.url);
-  const path = url.pathname.replace(/^\/boost-api/, "");
+  const path = url.pathname.replace("/functions/v1/boost-api", "");
 
   try {
     // POST /redeem - validate key, resolve invite, create task

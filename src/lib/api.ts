@@ -2,6 +2,7 @@ import { API_URL, ANON_KEY } from './supabase';
 function headers(adminToken?: string | null) {
   const h: Record<string, string> = {
     'Content-Type': 'application/json',
+     apikey: ANON_KEY,
   };
 
   if (adminToken) {
