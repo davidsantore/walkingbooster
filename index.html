@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Walking Booster</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        background: #000000;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+
+      #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+        z-index: 0;
+      }
+
+      #root {
+        position: relative;
+        z-index: 10;
+      }
+
+      canvas {
+        display: block;
+        vertical-align: bottom;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+      particlesJS('particles-js', {
+        "particles": {
+          "number": {
+            "value": 120,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#ffffff"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            }
+          },
+          "opacity": {
+            "value": 0.6,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 1.2,
+              "opacity_min": 0.2,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 3.5,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 2,
+              "size_min": 0.5,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 180,
+            "color": "#888888",
+            "opacity": 0.4,
+            "width": 1.5
+          },
+          "move": {
+            "enable": true,
+            "speed": 3,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "bounce",
+            "bounce": true,
+            "attract": {
+              "enable": false
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "grab"
+            },
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 250,
+              "line_linked": {
+                "opacity": 0.7
+              }
+            },
+            "bubble": {
+              "distance": 400,
+              "size": 50,
+              "duration": 2,
+              "opacity": 1,
+              "speed": 3
+            },
+            "push": {
+              "particles_nb": 4
+            }
+          }
+        },
+        "retina_detect": true
+      });
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
